@@ -48,7 +48,7 @@ def ask_ques(prompt)-> Schema:
         role="model",
         parts=[types.Part(text=response.text)]
     )
-)    #
+)    
     return full_text , token_count
 
 
