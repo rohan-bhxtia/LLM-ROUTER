@@ -63,4 +63,3 @@ if __name__ == "__main__":
         print("Fact: ", result.fact)
         print("------USAGE-------")
         print("total tokens: ", token_count)
-## left the code in mid
