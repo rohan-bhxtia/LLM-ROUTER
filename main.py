@@ -1,7 +1,10 @@
 from classifier import classify
+from router import route
 
-prompt = input("Enter your prompt: ")
+user_prompt = input("Enter your prompt: ")
 
-category = classify(prompt)
+category_from_classifier = classify(user_prompt)
 
-print("Category:", category)
+response = route(category_from_classifier, user_prompt)
+
+print(response)

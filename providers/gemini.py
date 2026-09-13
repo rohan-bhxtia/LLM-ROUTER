@@ -3,29 +3,32 @@ import os
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from pydantic import BaseModel
 
 
-class GeminiResult(BaseModel):
-    query: str
-    result: str
+load_dotenv()
+
+client = genai.Client(
+    api_key=os.getenv("Gemini_Api")
+)
 
 
-def generate_response(query: str) -> GeminiResult:
-    load_dotenv()
-    client = genai.Client(api_key=os.getenv("Gemini_Api"))
+def generate(prompt: str) -> str:
+
     response = client.models.generate_content(
         model="gemini-3.6-flash",
-        contents=query,
+        contents=prompt,
         config=types.GenerateContentConfig(
             temperature=0,
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
             system_instruction=(
-                "Answer with sarcastic, aggressive, and funny humor while remaining useful."
+                "Answer the user's question clearly but with a little sarcastic and aggresion."
             ),
         ),
     )
-    return GeminiResult(query=query, result=response.text.strip())
+
+    return response.text.strip()
 
 
-if __name__ == "__main__":
-    print(generate_response(input("Enter your prompt: ")))
+# if __name__ == "__main__":
+#     prompt = input("Enter your prompt: ")
+#     print(generate(prompt))
