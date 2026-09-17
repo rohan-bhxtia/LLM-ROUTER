@@ -27,5 +27,5 @@ def classify(prompt):
             automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
         ),
     )
-    category = response.text.strip()
+    category = response.text.strip().lower()
     return category

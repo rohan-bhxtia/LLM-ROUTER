@@ -1,10 +1,14 @@
 from classifier import classify
 from router import route
 
-user_prompt = input("Enter your prompt: ")
 
-category_from_classifier = classify(user_prompt)
+while True:
+    user_prompt = input("Enter your prompt: ")
 
-response = route(category_from_classifier, user_prompt)
+    if user_prompt == "stop()":
+        break
 
-print(response)
+    category_from_classifier = classify(user_prompt)
+    response = route(category_from_classifier, user_prompt)
+
+    print(response)

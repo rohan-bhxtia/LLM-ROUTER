@@ -1,18 +1,17 @@
-from providers import gemini, mistral, llama
+from providers import gemini, llama, mistral
 
-def route(category, prompt):
 
-    if category == "coding":
-        return gemini.generate(prompt)
+def route(category: str, prompt: str) -> str:
+    providers = {
+        "coding": gemini.generate,
+        "research": gemini.generate,
+        "writing": mistral.generate,
+        "general": llama.generate,
+    }
 
-    elif category == "research":
-        return gemini.generate(prompt)
+    provider = providers.get(category)
 
-    elif category == "writing":
-        return mistral.generate(prompt)
-
-    elif category == "general":
-        return llama.generate(prompt)
-
-    else:
+    if not provider:
         return "Unknown category"
+
+    return provider(prompt)
